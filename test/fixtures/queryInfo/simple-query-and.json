@@ -1,0 +1,19 @@
+{
+  "dataType": "Procedure",
+  "queryInfo": {
+  "filter": {
+    "type": "and",
+    "children": [
+      {
+        "type": "equals",
+        "attribute": "attr-0",
+        "value": "example-0"
+      },
+      {
+        "type": "equals",
+        "attribute": "attr-1",
+        "value": "example-1"
+      }
+    ]
+  }
+}}

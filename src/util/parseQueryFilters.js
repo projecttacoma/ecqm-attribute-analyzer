@@ -19,29 +19,28 @@ function parseQueryFilters(retrieves) {
     if (retrieve.queryInfo) {
       const { filter } = retrieve.queryInfo;
 
-      if (filter.type === 'and' || filter.type === 'or') {
-        filter.children.forEach(child => {
-          if (
-            child.attribute &&
-            !attributes.includes(child.attribute) &&
-            !IGNORED_ATTRIBUTES.includes(child.attribute)
-          ) {
-            attributes.push(child.attribute);
-          }
-        });
-      } else if (
-        filter.attribute &&
-        !attributes.includes(filter.attribute) &&
-        !IGNORED_ATTRIBUTES.includes(filter.attribute)
-      ) {
-        attributes.push(filter.attribute);
-      }
+      // Recursively parse all attribues and push to array
+      parseFilter(filter, attributes);
     }
 
     output[resourceType] = attributes;
   });
 
   return output;
+}
+
+function parseFilter(filter, attributes) {
+  if (filter.type === 'and' || filter.type === 'or') {
+    filter.children.forEach(child => {
+      parseFilter(child, attributes);
+    });
+  } else if (
+    filter.attribute &&
+    !attributes.includes(filter.attribute) &&
+    !IGNORED_ATTRIBUTES.includes(filter.attribute)
+  ) {
+    attributes.push(filter.attribute);
+  }
 }
 
 module.exports = {

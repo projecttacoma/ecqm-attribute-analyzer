@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
+    "test": "jest",
     "start": "node src/index.js",
     "lint": "eslint \"**/*.js\"",
     "lint:fix": "eslint \"**/*.js\" --fix",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "eslint": "^8.1.0",
     "eslint-config-prettier": "^8.3.0",
+    "jest": "^27.3.1",
     "prettier": "^2.4.1"
   }
 }

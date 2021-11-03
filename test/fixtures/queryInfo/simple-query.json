@@ -1,0 +1,10 @@
+{
+  "dataType": "Procedure",
+  "queryInfo": {
+    "filter": {
+      "type": "equals",
+      "attribute": "attr-0",
+      "value": "example"
+    }
+  }
+}
