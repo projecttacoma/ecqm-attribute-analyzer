@@ -57,8 +57,8 @@ bundleFilePaths.forEach(p => {
               fgColor: { argb: 'FF9F9F' }
             };
 
-          validationString += `\tERROR: Attribute ${resourceType}.${cell.value} is queried for by measure but not marked as "mustSupport" in the Profile\n`;
-          measureHasError = true;
+            validationString += `\tERROR: Attribute ${resourceType}.${cell.value} is queried for by measure but not marked as "mustSupport" in the Profile\n`;
+            measureHasError = true;
           } else {
             cell.fill = {
               type: 'pattern',
