@@ -15,6 +15,8 @@ structureDefs.forEach(sd => {
 
     sd.snapshot.element.forEach(elem => {
       if (elem.mustSupport) {
+        // Strip off redundant first part of path (i.e. the resource type)
+        // Safely handle value[x] attributes since cql-execution will not include the [x]
         const attr = elem.path.split('.').slice(1).join('.').replace('[x]', '');
 
         if (!mustSupports.includes(attr)) {

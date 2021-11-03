@@ -1,6 +1,12 @@
 // TODO: The root of these attributes are already handled. We can probably improve this to not need to ignore them
 const IGNORED_ATTRIBUTES = ['performed.start', 'performed.end', 'effective.start', 'effective.end'];
 
+/**
+ * Parse the output from fqm-execution to identify all attributes accessed
+ *
+ * @param {Array} retrieves the DataTypeQuery array from fqm-execution
+ * @return {Object} lookup object of resourceType -> attributes
+ */
 function parseQueryFilters(retrieves) {
   const output = {};
 
@@ -9,6 +15,7 @@ function parseQueryFilters(retrieves) {
 
     const attributes = output[resourceType] || [];
 
+    // Inspect any filters that go for a "attribute" on the query source
     if (retrieve.queryInfo) {
       const { filter } = retrieve.queryInfo;
 

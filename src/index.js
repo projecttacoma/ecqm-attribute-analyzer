@@ -19,6 +19,7 @@ const cthonBasePath = path.resolve(path.join('../connectathon/fhir401/bundles/me
 
 const bundleFilePaths = fs.readdirSync(cthonBasePath).map(d => path.join(d, `${d}-bundle.json`));
 
+// Stores information for outputted excel spreadsheet
 const workbook = new Workbook();
 
 bundleFilePaths.forEach(p => {
@@ -27,6 +28,7 @@ bundleFilePaths.forEach(p => {
   const measureBaseName = path.basename(measureBundlePath, '-bundle.json');
 
   try {
+    // Get query info and create worksheet for the measure if successful
     const { results } = Calculator.calculateQueryInfo(measureBundle);
 
     const allAttributes = parseQueryFilters(results);
@@ -45,6 +47,7 @@ bundleFilePaths.forEach(p => {
       const values = [resourceType, '', ...attributes];
       col.values = values;
 
+      // Color each cell based on adherence to mustSupport flag
       col.eachCell((cell, rowNum) => {
         if (rowNum > 2 && cell.value) {
           if (!mustSupports[resourceType].includes(cell.value)) {
