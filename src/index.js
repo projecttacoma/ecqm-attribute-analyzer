@@ -56,6 +56,9 @@ bundleFilePaths.forEach(p => {
               pattern: 'solid',
               fgColor: { argb: 'FF9F9F' }
             };
+
+          validationString += `\tERROR: Attribute ${resourceType}.${cell.value} is queried for by measure but not marked as "mustSupport" in the Profile\n`;
+          measureHasError = true;
           } else {
             cell.fill = {
               type: 'pattern',
@@ -63,13 +66,6 @@ bundleFilePaths.forEach(p => {
               fgColor: { argb: '9FFF9F' }
             };
           }
-        }
-      });
-
-      attributes.forEach(attr => {
-        if (!mustSupports[resourceType].includes(attr)) {
-          validationString += `\tERROR: Attribute ${resourceType}.${attr} is queried for by measure but not marked as "mustSupport" in the Profile\n`;
-          measureHasError = true;
         }
       });
     });
