@@ -21,17 +21,22 @@ const bundleFilePaths = fs.readdirSync(cthonBasePath).map(d => path.join(d, `${d
 
 // Stores information for outputted excel spreadsheet
 const workbook = new Workbook();
+const worksheet = workbook.addWorksheet('Resources');
 
 const GOOD_FILL_CONFIG = {
   type: 'pattern',
   pattern: 'solid',
   fgColor: { argb: '9FFF9F' }
 };
+
 const BAD_FILL_CONFIG = {
   type: 'pattern',
   pattern: 'solid',
   fgColor: { argb: 'FF9F9F' }
 };
+
+// Object for accumulating all Resources and attributes used for all measures
+const allResources = {};
 
 bundleFilePaths.forEach(p => {
   const measureBundlePath = path.join(cthonBasePath, p);
@@ -43,32 +48,22 @@ bundleFilePaths.forEach(p => {
     const { results } = Calculator.calculateQueryInfo(measureBundle);
 
     const allAttributes = parseQueryFilters(results);
-    const worksheet = workbook.addWorksheet(measureBaseName);
-
-    worksheet.columns = Object.keys(allAttributes).map(resourceType => ({
-      key: resourceType,
-      header: resourceType
-    }));
 
     let measureHasError = false;
     let validationString = `Measure ${measureBaseName}:\n`;
 
     Object.entries(allAttributes).forEach(([resourceType, attributes]) => {
-      const col = worksheet.getColumn(resourceType);
-      const values = [resourceType, '', ...attributes];
-      col.values = values;
+      const attrs = allResources[resourceType] || [];
+      attrs.push(...attributes);
 
-      // Color each cell based on adherence to mustSupport flag
-      col.eachCell((cell, rowNum) => {
-        if (rowNum > 2 && cell.value) {
-          if (!mustSupports[resourceType].includes(cell.value)) {
-            cell.fill = BAD_FILL_CONFIG;
+      // Ensure uniqueness of ongoing attribute array
+      allResources[resourceType] = [...new Set(attrs)];
 
-            validationString += `\tERROR: Attribute ${resourceType}.${cell.value} is queried for by measure but not marked as "mustSupport" in the Profile\n`;
-            measureHasError = true;
-          } else {
-            cell.fill = GOOD_FILL_CONFIG;
-          }
+      // Validate each attribute at the measure level
+      attributes.forEach(attr => {
+        if (!mustSupports[resourceType].includes(attr)) {
+          validationString += `\tERROR: Attribute ${resourceType}.${attr} is queried for by measure but not marked as "mustSupport" in the Profile\n`;
+          measureHasError = true;
         }
       });
     });
@@ -77,23 +72,45 @@ bundleFilePaths.forEach(p => {
       validationString += '\tvalidation succeeded\n';
     }
 
-    worksheet.getRow(1).font = {
-      bold: true
-    };
-
-    worksheet.addRow();
-
-    const legendRowGood = worksheet.addRow(['', '=', 'Correctly marked as "Must Support"']);
-    const legendRowBad = worksheet.addRow(['', '=', 'Not marked as "Must Support"']);
-
-    legendRowGood.getCell(1).fill = GOOD_FILL_CONFIG;
-    legendRowBad.getCell(1).fill = BAD_FILL_CONFIG;
-
     console.log(validationString);
   } catch (e) {
     console.error(`Measure ${measureBaseName}: Error parsing measure logic (${e.message})\n`);
   }
 });
+
+worksheet.columns = Object.keys(allResources).map(resourceType => ({
+  key: resourceType,
+  header: resourceType
+}));
+
+Object.entries(allResources).forEach(([resourceType, attributes]) => {
+  const col = worksheet.getColumn(resourceType);
+  const values = [resourceType, '', ...attributes];
+  col.values = values;
+
+  // Color each cell based on adherence to mustSupport flag
+  col.eachCell((cell, rowNum) => {
+    if (rowNum > 2 && cell.value) {
+      if (!mustSupports[resourceType].includes(cell.value)) {
+        cell.fill = BAD_FILL_CONFIG;
+      } else {
+        cell.fill = GOOD_FILL_CONFIG;
+      }
+    }
+  });
+});
+
+worksheet.getRow(1).font = {
+  bold: true
+};
+
+worksheet.addRow();
+
+const legendRowGood = worksheet.addRow(['', '=', 'Correctly marked as "Must Support"']);
+const legendRowBad = worksheet.addRow(['', '=', 'Not marked as "Must Support"']);
+
+legendRowGood.getCell(1).fill = GOOD_FILL_CONFIG;
+legendRowBad.getCell(1).fill = BAD_FILL_CONFIG;
 
 const outFile = 'output.xlsx';
 
