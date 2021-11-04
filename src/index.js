@@ -22,6 +22,17 @@ const bundleFilePaths = fs.readdirSync(cthonBasePath).map(d => path.join(d, `${d
 // Stores information for outputted excel spreadsheet
 const workbook = new Workbook();
 
+const GOOD_FILL_CONFIG = {
+  type: 'pattern',
+  pattern: 'solid',
+  fgColor: { argb: '9FFF9F' }
+};
+const BAD_FILL_CONFIG = {
+  type: 'pattern',
+  pattern: 'solid',
+  fgColor: { argb: 'FF9F9F' }
+};
+
 bundleFilePaths.forEach(p => {
   const measureBundlePath = path.join(cthonBasePath, p);
   const measureBundle = JSON.parse(fs.readFileSync(measureBundlePath), 'utf8');
@@ -51,20 +62,12 @@ bundleFilePaths.forEach(p => {
       col.eachCell((cell, rowNum) => {
         if (rowNum > 2 && cell.value) {
           if (!mustSupports[resourceType].includes(cell.value)) {
-            cell.fill = {
-              type: 'pattern',
-              pattern: 'solid',
-              fgColor: { argb: 'FF9F9F' }
-            };
+            cell.fill = BAD_FILL_CONFIG;
 
             validationString += `\tERROR: Attribute ${resourceType}.${cell.value} is queried for by measure but not marked as "mustSupport" in the Profile\n`;
             measureHasError = true;
           } else {
-            cell.fill = {
-              type: 'pattern',
-              pattern: 'solid',
-              fgColor: { argb: '9FFF9F' }
-            };
+            cell.fill = GOOD_FILL_CONFIG;
           }
         }
       });
@@ -77,6 +80,14 @@ bundleFilePaths.forEach(p => {
     worksheet.getRow(1).font = {
       bold: true
     };
+
+    worksheet.addRow();
+
+    const legendRowGood = worksheet.addRow(['', '=', 'Correctly marked as "Must Support"']);
+    const legendRowBad = worksheet.addRow(['', '=', 'Not marked as "Must Support"']);
+
+    legendRowGood.getCell(1).fill = GOOD_FILL_CONFIG;
+    legendRowBad.getCell(1).fill = BAD_FILL_CONFIG;
 
     console.log(validationString);
   } catch (e) {
