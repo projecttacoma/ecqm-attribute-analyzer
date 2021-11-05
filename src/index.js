@@ -47,6 +47,7 @@ bundleFilePaths.forEach(p => {
     // Get query info and create worksheet for the measure if successful
     const { results } = Calculator.calculateQueryInfo(measureBundle);
 
+    // Mapping of resourceType -> attributes for this measure
     const allAttributes = parseQueryFilters(results);
 
     let measureHasError = false;
