@@ -19,7 +19,7 @@ function parseQueryFilters(retrieves) {
     if (retrieve.queryInfo) {
       const { filter } = retrieve.queryInfo;
 
-      // Recursively parse all attribues and push to array
+      // Recursively parse all attributes and push to array
       parseFilter(filter, attributes);
     }
 
