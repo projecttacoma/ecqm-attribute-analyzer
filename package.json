@@ -1,0 +1,28 @@
+{
+  "name": "ecqm-attribute-analyzer",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node src/index.js",
+    "lint": "eslint \"**/*.js\"",
+    "lint:fix": "eslint \"**/*.js\" --fix",
+    "parse": "node src/util/getMustSupports.js",
+    "prettier": "prettier --check \"**/*.js\"",
+    "prettier:fix": "prettier --write \"**/*.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "exceljs": "^4.3.0",
+    "fqm-execution": "^0.8.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "jest": "^27.3.1",
+    "prettier": "^2.4.1"
+  }
+}
