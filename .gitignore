@@ -1,5 +1,5 @@
 node_modules/
-ig/
+*-ig/
 connectathon/
 *.zip
 *.xlsx

@@ -10,6 +10,8 @@ In eCQM logic, these attributes may be accessed within CQL queries to determine 
 
 This tool will parse available FHIR measure logic and identify any attributes accessed by the measure that are not marked as must support in QI-Core.
 
+In addition, this tool will identify any "new" attributes that are "Must Support" in QI-Core. That is, attributes that were not marked as "Must Support" in US-Core, but have been upgraded to "Must Support" by QI-Core
+
 ## Usage
 
 ### Quickstart
@@ -39,9 +41,11 @@ The `setup.sh` script will only work on MacOS or Linux. To replicate the steps t
 git clone https://github.com/dbcg/connectathon
 ```
 
-2) Download the [JSON structure definitions](https://build.fhir.org/ig/HL7/fhir-qi-core/downloads.html#definitions) from the QI-Core Implementation Guide, and unzip the contents to a directory called `ig` at the root of the project
+2) Download the [JSON structure definitions](https://build.fhir.org/ig/HL7/fhir-qi-core/downloads.html#definitions) from the QI-Core Implementation Guide, and unzip the contents to a directory called `qicore-ig` at the root of the project
 
-3) Run the structure definition parsing script to generate `src/mustSupports.json`:
+3) Download the [Full US-Core IG](https://www.hl7.org/fhir/us/core/downloads.html#downloadable-copy-of-entire-specification) and unzip the contents to a directory called `uscore-ig` at the root of the project
+
+4) Run the structure definition parsing script to generate `src/qicore-must-supports.json` and `src/uscore-must-supports.json`:
 
 ``` bash
 npm run parse
@@ -53,5 +57,6 @@ Now, the project should be set up the same as it would have been via a run of th
 
 * Open `output.xlsx` in Microsoft Excel. There will be a worksheet present at the bottom for each successfully parsed measure
 * Each worksheet contains the FHIR resource types queried for by the measure logic, as well as any attributes accessed by the filters in those queries
-* Cells are colored green if the corresponding attribute is marked as "Must Support" in the IG
-* Cells are colored red if the corresponding attribute is NOT marked as "Must Support" in the IG
+* Cells are colored green if the corresponding attribute is marked as "Must Support" in the QI-Core IG
+* Cells are colored red if the corresponding attribute is NOT marked as "Must Support" in the Qi-Core IG
+* Cells are colored yellow if the corresponding attribute is marked as "Must Support" in the QI-Core IG but not "Must Support" in the US-Core IG (for applicable profiles)

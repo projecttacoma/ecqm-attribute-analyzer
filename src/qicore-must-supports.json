@@ -1,0 +1,601 @@
+{
+  "AdverseEvent": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/AdverseEvent",
+    "mustSupports": [
+      "actuality",
+      "category",
+      "event",
+      "subject",
+      "encounter",
+      "resultingCondition",
+      "suspectEntity.instance"
+    ]
+  },
+  "AllergyIntolerance": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance",
+    "mustSupports": [
+      "clinicalStatus",
+      "verificationStatus",
+      "type",
+      "category",
+      "criticality",
+      "code",
+      "patient",
+      "encounter",
+      "recordedDate",
+      "reaction",
+      "reaction.extension",
+      "reaction.manifestation",
+      "reaction.onset",
+      "reaction.severity"
+    ]
+  },
+  "BodyStructure": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/BodyStructure",
+    "mustSupports": [
+      "active",
+      "location",
+      "locationQualifier",
+      "patient"
+    ]
+  },
+  "CarePlan": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-careplan",
+    "mustSupports": [
+      "text",
+      "text.status",
+      "status",
+      "intent",
+      "category",
+      "subject"
+    ]
+  },
+  "CareTeam": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-careteam",
+    "mustSupports": [
+      "status",
+      "subject",
+      "participant",
+      "participant.role",
+      "participant.member"
+    ]
+  },
+  "Claim": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Claim",
+    "mustSupports": [
+      "patient",
+      "billablePeriod",
+      "created",
+      "provider",
+      "prescription"
+    ]
+  },
+  "Communication": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Communication",
+    "mustSupports": [
+      "status",
+      "statusReason",
+      "category",
+      "medium",
+      "subject",
+      "encounter",
+      "sent",
+      "received",
+      "recipient",
+      "sender",
+      "reasonCode",
+      "extension",
+      "reasonCode.extension"
+    ]
+  },
+  "CommunicationRequest": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/CommunicationRequest",
+    "mustSupports": [
+      "status",
+      "category",
+      "doNotPerform",
+      "subject",
+      "encounter",
+      "recipient",
+      "sender"
+    ]
+  },
+  "Condition": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition",
+    "mustSupports": [
+      "clinicalStatus",
+      "verificationStatus",
+      "category",
+      "severity",
+      "code",
+      "bodySite",
+      "subject",
+      "encounter",
+      "onset",
+      "abatement",
+      "recordedDate",
+      "stage",
+      "stage.summary"
+    ]
+  },
+  "Coverage": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Coverage",
+    "mustSupports": [
+      "type",
+      "policyHolder",
+      "beneficiary",
+      "period",
+      "payor"
+    ]
+  },
+  "Device": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Device",
+    "mustSupports": [
+      "patient"
+    ]
+  },
+  "DeviceRequest": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/DeviceRequest",
+    "mustSupports": [
+      "extension",
+      "modifierExtension",
+      "modifierExtension.value",
+      "status",
+      "intent",
+      "code",
+      "code.extension",
+      "subject",
+      "encounter",
+      "authoredOn",
+      "note",
+      "identifier",
+      "occurrence",
+      "requester",
+      "performer",
+      "reasonReference"
+    ]
+  },
+  "DeviceUseStatement": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/DeviceUseStatement",
+    "mustSupports": [
+      "status",
+      "subject",
+      "timing",
+      "recordedOn",
+      "device",
+      "bodySite"
+    ]
+  },
+  "DiagnosticReport": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note",
+    "mustSupports": [
+      "status",
+      "category",
+      "code",
+      "subject",
+      "effective",
+      "issued",
+      "performer",
+      "result",
+      "conclusion",
+      "conclusionCode",
+      "encounter",
+      "imagingStudy",
+      "presentedForm"
+    ]
+  },
+  "Encounter": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter",
+    "mustSupports": [
+      "extension",
+      "identifier",
+      "identifier.system",
+      "identifier.value",
+      "status",
+      "class",
+      "type",
+      "priority",
+      "subject",
+      "participant",
+      "participant.type",
+      "participant.period",
+      "participant.individual",
+      "period",
+      "length",
+      "reasonCode",
+      "diagnosis",
+      "diagnosis.extension",
+      "diagnosis.condition",
+      "diagnosis.use",
+      "diagnosis.rank",
+      "hospitalization",
+      "hospitalization.admitSource",
+      "hospitalization.reAdmission",
+      "hospitalization.dischargeDisposition",
+      "location",
+      "location.location",
+      "location.period",
+      "serviceProvider"
+    ]
+  },
+  "FamilyMemberHistory": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/FamilyMemberHistory",
+    "mustSupports": [
+      "patient",
+      "date",
+      "relationship",
+      "age",
+      "deceased",
+      "condition.code"
+    ]
+  },
+  "Flag": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Flag",
+    "mustSupports": [
+      "status",
+      "category",
+      "code",
+      "subject",
+      "period"
+    ]
+  },
+  "Goal": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-goal",
+    "mustSupports": [
+      "lifecycleStatus",
+      "achievementStatus",
+      "category",
+      "description",
+      "subject",
+      "target",
+      "target.due",
+      "statusDate",
+      "addresses"
+    ]
+  },
+  "ImagingStudy": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/ImagingStudy",
+    "mustSupports": [
+      "subject",
+      "started",
+      "basedOn",
+      "procedureReference"
+    ]
+  },
+  "Immunization": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization",
+    "mustSupports": [
+      "status",
+      "statusReason",
+      "vaccineCode",
+      "patient",
+      "occurrence",
+      "recorded",
+      "primarySource",
+      "vaccineCode.extension"
+    ]
+  },
+  "ImmunizationEvaluation": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/ImmunizationEvaluation",
+    "mustSupports": [
+      "identifier",
+      "status",
+      "patient",
+      "date",
+      "targetDisease",
+      "immunizationEvent",
+      "doseStatus",
+      "doseStatusReason"
+    ]
+  },
+  "ImmunizationRecommendation": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/ImmunizationRecommendation",
+    "mustSupports": [
+      "patient",
+      "recommendation",
+      "recommendation.vaccineCode",
+      "recommendation.doseNumber"
+    ]
+  },
+  "Location": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-location",
+    "mustSupports": [
+      "identifier",
+      "identifier.use",
+      "identifier.system",
+      "identifier.value",
+      "status",
+      "name",
+      "mode",
+      "type",
+      "telecom",
+      "address",
+      "address.line",
+      "address.city",
+      "address.state",
+      "address.postalCode",
+      "managingOrganization"
+    ]
+  },
+  "Medication": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication",
+    "mustSupports": [
+      "code"
+    ]
+  },
+  "MedicationAdministration": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/MedicationAdministration",
+    "mustSupports": [
+      "status",
+      "statusReason",
+      "medication",
+      "subject",
+      "context",
+      "effective",
+      "reasonCode",
+      "dosage.route",
+      "dosage.dose",
+      "extension",
+      "medication.extension"
+    ]
+  },
+  "MedicationDispense": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/MedicationDispense",
+    "mustSupports": [
+      "status",
+      "statusReason",
+      "medication",
+      "subject",
+      "quantity",
+      "daysSupply",
+      "whenPrepared",
+      "whenHandedOver",
+      "dosageInstruction.timing",
+      "dosageInstruction.route",
+      "dosageInstruction.doseAndRate",
+      "dosageInstruction.doseAndRate.type",
+      "dosageInstruction.doseAndRate.dose",
+      "extension",
+      "medication.extension"
+    ]
+  },
+  "MedicationRequest": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest",
+    "mustSupports": [
+      "status",
+      "intent",
+      "category",
+      "doNotPerform",
+      "reported",
+      "medication",
+      "subject",
+      "encounter",
+      "authoredOn",
+      "requester",
+      "dosageInstruction",
+      "dosageInstruction.text",
+      "dosageInstruction.timing",
+      "dosageInstruction.timing.repeat",
+      "dosageInstruction.timing.repeat.frequency",
+      "dosageInstruction.timing.repeat.frequencyMax",
+      "dosageInstruction.timing.repeat.period",
+      "dosageInstruction.timing.repeat.periodMax",
+      "dosageInstruction.timing.repeat.periodUnit",
+      "dosageInstruction.asNeeded",
+      "dosageInstruction.site",
+      "dosageInstruction.doseAndRate",
+      "dosageInstruction.doseAndRate.dose",
+      "dispenseRequest",
+      "dispenseRequest.initialFill",
+      "dispenseRequest.dispenseInterval",
+      "dispenseRequest.validityPeriod",
+      "dispenseRequest.numberOfRepeatsAllowed",
+      "dispenseRequest.quantity",
+      "dispenseRequest.expectedSupplyDuration",
+      "medication.extension",
+      "reasonCode"
+    ]
+  },
+  "MedicationStatement": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+    "mustSupports": [
+      "status",
+      "medication",
+      "subject",
+      "effective",
+      "dateAsserted",
+      "informationSource",
+      "derivedFrom",
+      "dosage.timing",
+      "dosage.route",
+      "dosage.doseAndRate",
+      "dosage.doseAndRate.dose"
+    ]
+  },
+  "NutritionOrder": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/NutritionOrder",
+    "mustSupports": [
+      "identifier",
+      "patient"
+    ]
+  },
+  "Observation": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
+    "mustSupports": [
+      "status",
+      "category",
+      "code",
+      "subject",
+      "encounter",
+      "effective",
+      "issued",
+      "value",
+      "interpretation",
+      "bodySite",
+      "method",
+      "specimen",
+      "component",
+      "component.code",
+      "component.value",
+      "component.dataAbsentReason",
+      "component.interpretation",
+      "extension",
+      "code.extension"
+    ]
+  },
+  "Organization": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization",
+    "mustSupports": [
+      "identifier",
+      "identifier.use",
+      "identifier.value",
+      "active",
+      "type",
+      "name",
+      "telecom",
+      "address",
+      "address.line",
+      "address.city",
+      "address.state",
+      "address.postalCode",
+      "address.country",
+      "endpoint"
+    ]
+  },
+  "Patient": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient",
+    "mustSupports": [
+      "extension",
+      "identifier",
+      "identifier.system",
+      "identifier.value",
+      "name",
+      "name.family",
+      "name.given",
+      "telecom",
+      "telecom.system",
+      "telecom.value",
+      "telecom.use",
+      "gender",
+      "birthDate",
+      "deceased",
+      "address",
+      "address.line",
+      "address.city",
+      "address.state",
+      "address.postalCode",
+      "address.period",
+      "communication",
+      "communication.language"
+    ]
+  },
+  "Practitioner": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner",
+    "mustSupports": [
+      "identifier",
+      "identifier.use",
+      "identifier.value",
+      "name",
+      "name.family"
+    ]
+  },
+  "PractitionerRole": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole",
+    "mustSupports": [
+      "identifier",
+      "identifier.use",
+      "identifier.system",
+      "identifier.value",
+      "active",
+      "period",
+      "practitioner",
+      "organization",
+      "code",
+      "specialty",
+      "location",
+      "telecom",
+      "telecom.system",
+      "telecom.value",
+      "endpoint"
+    ]
+  },
+  "Procedure": {
+    "baseDefinition": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure",
+    "mustSupports": [
+      "extension",
+      "status",
+      "code",
+      "subject",
+      "encounter",
+      "performed",
+      "performer",
+      "reasonCode",
+      "bodySite",
+      "report",
+      "usedCode",
+      "statusReason",
+      "code.extension",
+      "performed.extension"
+    ]
+  },
+  "RelatedPerson": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson",
+    "mustSupports": [
+      "patient",
+      "relationship",
+      "gender",
+      "period"
+    ]
+  },
+  "ServiceRequest": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/ServiceRequest",
+    "mustSupports": [
+      "extension",
+      "modifierExtension",
+      "status",
+      "doNotPerform",
+      "code",
+      "code.extension",
+      "subject",
+      "encounter",
+      "occurrence",
+      "authoredOn",
+      "bodySite",
+      "intent",
+      "asNeeded",
+      "reasonCode"
+    ]
+  },
+  "Specimen": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Specimen",
+    "mustSupports": [
+      "type",
+      "subject",
+      "receivedTime",
+      "collection.collected",
+      "collection.bodySite",
+      "processing.procedure"
+    ]
+  },
+  "Substance": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Substance",
+    "mustSupports": [
+      "code",
+      "instance.quantity",
+      "ingredient.quantity",
+      "ingredient.substance"
+    ]
+  },
+  "Task": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Task",
+    "mustSupports": [
+      "identifier",
+      "status",
+      "intent",
+      "priority",
+      "code",
+      "code.extension",
+      "executionPeriod"
+    ]
+  }
+}
