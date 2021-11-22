@@ -3,8 +3,6 @@ const path = require('path');
 const { Calculator } = require('fqm-execution');
 const { Workbook } = require('exceljs');
 const { parseQueryFilters } = require('./util/parseQueryFilters');
-const qicoreMustSupports = require('./qicore-must-supports.json');
-const uscoreMustSupports = require('./uscore-must-supports.json');
 
 if (!fs.existsSync('connectathon')) {
   console.error('Error: could not find "connectathon" directory. Ensure you run ./setup.sh first');
@@ -20,6 +18,9 @@ if (!fs.existsSync('./src/uscore-must-supports.json')) {
   console.error('Error: could not find "src/uscore-must-supports.json". Ensure you run ./setup.sh first');
   process.exit(1);
 }
+
+const qicoreMustSupports = JSON.parse(fs.readFileSync('./src/qicore-must-supports.json', 'utf8'));
+const uscoreMustSupports = JSON.parse(fs.readFileSync('./src/uscore-must-supports.json', 'utf8'));
 
 const cthonBasePath = path.resolve(path.join(__dirname, '../connectathon/fhir401/bundles/measure'));
 
