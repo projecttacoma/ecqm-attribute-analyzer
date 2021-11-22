@@ -10,7 +10,7 @@ In eCQM logic, these attributes may be accessed within CQL queries to determine 
 
 This tool will parse available FHIR measure logic and identify any attributes accessed by the measure that are not marked as must support in QI-Core.
 
-In addition, this tool will identify any "new" attributes that are "Must Support" in QI-Core. That is, attributes that were not marked as "Must Support" in US-Core, but have been upgraded to "Must Support" by QI-Core
+In addition, this tool will identify any "new" attributes that are "Must Support" in QI-Core. That is, attributes that were not marked as "Must Support" in US-Core, but have been upgraded to "Must Support" by QI-Core.
 
 ## Usage
 

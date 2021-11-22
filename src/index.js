@@ -12,7 +12,7 @@ if (!fs.existsSync('connectathon')) {
 }
 
 if (!fs.existsSync('./src/qicore-must-supports.json')) {
-  console.error('Error: could not find "src/uscore-must-supports.json". Ensure you run ./setup.sh first');
+  console.error('Error: could not find "src/qicore-must-supports.json". Ensure you run ./setup.sh first');
   process.exit(1);
 }
 
