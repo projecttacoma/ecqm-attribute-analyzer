@@ -116,6 +116,7 @@ Object.entries(allResources).forEach(([resourceType, attributes]) => {
   col.values = values;
 
   // Color each cell based on adherence to mustSupport flag
+  let maxWidth = 0;
   col.eachCell((cell, rowNum) => {
     const qiCoreEntry = qicoreMustSupports[resourceType];
 
@@ -128,7 +129,13 @@ Object.entries(allResources).forEach(([resourceType, attributes]) => {
         cell.fill = GOOD_FILL_CONFIG;
       }
     }
+
+    if (cell.value && cell.value.length > maxWidth) {
+      maxWidth = cell.value.length;
+    }
   });
+
+  col.width = maxWidth;
 });
 
 worksheet.getRow(1).font = {
