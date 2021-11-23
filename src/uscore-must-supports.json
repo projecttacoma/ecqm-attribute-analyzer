@@ -1,0 +1,291 @@
+{
+  "Observation": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/vitalsigns",
+    "mustSupports": [
+      "status",
+      "category",
+      "category.coding",
+      "category.coding.system",
+      "category.coding.code",
+      "code",
+      "subject",
+      "effective",
+      "value",
+      "value.value",
+      "value.unit",
+      "value.system",
+      "value.code",
+      "dataAbsentReason",
+      "component",
+      "component.code",
+      "component.value",
+      "component.dataAbsentReason",
+      "component.value.value",
+      "component.value.unit",
+      "component.value.system",
+      "component.value.code",
+      "code.coding"
+    ]
+  },
+  "AllergyIntolerance": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/AllergyIntolerance",
+    "mustSupports": [
+      "clinicalStatus",
+      "verificationStatus",
+      "code",
+      "patient",
+      "reaction",
+      "reaction.manifestation"
+    ]
+  },
+  "CarePlan": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/CarePlan",
+    "mustSupports": [
+      "text",
+      "text.status",
+      "text.div",
+      "status",
+      "intent",
+      "category",
+      "subject"
+    ]
+  },
+  "CareTeam": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/CareTeam",
+    "mustSupports": [
+      "status",
+      "subject",
+      "participant",
+      "participant.role",
+      "participant.member"
+    ]
+  },
+  "Condition": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
+    "mustSupports": [
+      "clinicalStatus",
+      "verificationStatus",
+      "category",
+      "code",
+      "subject"
+    ]
+  },
+  "DiagnosticReport": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/DiagnosticReport",
+    "mustSupports": [
+      "status",
+      "category",
+      "code",
+      "subject",
+      "effective",
+      "issued",
+      "performer",
+      "result",
+      "encounter",
+      "presentedForm"
+    ]
+  },
+  "DocumentReference": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/DocumentReference",
+    "mustSupports": [
+      "identifier",
+      "status",
+      "type",
+      "category",
+      "subject",
+      "date",
+      "author",
+      "content",
+      "content.attachment",
+      "content.attachment.contentType",
+      "content.attachment.data",
+      "content.attachment.url",
+      "content.format",
+      "context",
+      "context.encounter",
+      "context.period"
+    ]
+  },
+  "Encounter": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Encounter",
+    "mustSupports": [
+      "identifier",
+      "identifier.system",
+      "identifier.value",
+      "status",
+      "class",
+      "type",
+      "subject",
+      "participant",
+      "participant.type",
+      "participant.period",
+      "participant.individual",
+      "period",
+      "reasonCode",
+      "reasonReference",
+      "hospitalization",
+      "hospitalization.dischargeDisposition",
+      "location",
+      "location.location",
+      "serviceProvider"
+    ]
+  },
+  "Goal": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Goal",
+    "mustSupports": [
+      "lifecycleStatus",
+      "description",
+      "subject",
+      "target",
+      "target.due"
+    ]
+  },
+  "Immunization": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Immunization",
+    "mustSupports": [
+      "status",
+      "statusReason",
+      "vaccineCode",
+      "patient",
+      "occurrence",
+      "primarySource"
+    ]
+  },
+  "Device": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Device",
+    "mustSupports": [
+      "udiCarrier",
+      "udiCarrier.deviceIdentifier",
+      "udiCarrier.carrierHRF",
+      "manufactureDate",
+      "expirationDate",
+      "lotNumber",
+      "serialNumber",
+      "type",
+      "patient"
+    ]
+  },
+  "Location": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Location",
+    "mustSupports": [
+      "status",
+      "name",
+      "telecom",
+      "address",
+      "address.line",
+      "address.city",
+      "address.state",
+      "address.postalCode",
+      "managingOrganization"
+    ]
+  },
+  "Medication": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Medication",
+    "mustSupports": [
+      "code"
+    ]
+  },
+  "MedicationRequest": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+    "mustSupports": [
+      "status",
+      "intent",
+      "category",
+      "reported",
+      "medication",
+      "subject",
+      "encounter",
+      "authoredOn",
+      "requester",
+      "dosageInstruction",
+      "dosageInstruction.text"
+    ]
+  },
+  "Organization": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Organization",
+    "mustSupports": [
+      "identifier",
+      "identifier.system",
+      "identifier.value",
+      "active",
+      "name",
+      "telecom",
+      "telecom.system",
+      "telecom.value",
+      "address",
+      "address.line",
+      "address.city",
+      "address.state",
+      "address.postalCode",
+      "address.country"
+    ]
+  },
+  "Patient": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Patient",
+    "mustSupports": [
+      "identifier",
+      "identifier.system",
+      "identifier.value",
+      "name",
+      "name.family",
+      "name.given",
+      "telecom.system",
+      "telecom.value",
+      "telecom.use",
+      "gender",
+      "birthDate",
+      "address",
+      "address.line",
+      "address.city",
+      "address.state",
+      "address.postalCode",
+      "address.period",
+      "communication.language"
+    ]
+  },
+  "Practitioner": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Practitioner",
+    "mustSupports": [
+      "identifier",
+      "identifier.system",
+      "identifier.value",
+      "name",
+      "name.family"
+    ]
+  },
+  "PractitionerRole": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/PractitionerRole",
+    "mustSupports": [
+      "practitioner",
+      "organization",
+      "code",
+      "specialty",
+      "location",
+      "telecom",
+      "telecom.system",
+      "telecom.value",
+      "endpoint"
+    ]
+  },
+  "Procedure": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Procedure",
+    "mustSupports": [
+      "status",
+      "code",
+      "subject",
+      "performed"
+    ]
+  },
+  "Provenance": {
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Provenance",
+    "mustSupports": [
+      "target",
+      "target.reference",
+      "recorded",
+      "agent",
+      "agent.type",
+      "agent.who",
+      "agent.onBehalfOf"
+    ]
+  }
+}

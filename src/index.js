@@ -3,19 +3,26 @@ const path = require('path');
 const { Calculator } = require('fqm-execution');
 const { Workbook } = require('exceljs');
 const { parseQueryFilters } = require('./util/parseQueryFilters');
-const mustSupports = require('./mustSupports.json');
 
 if (!fs.existsSync('connectathon')) {
   console.error('Error: could not find "connectathon" directory. Ensure you run ./setup.sh first');
   process.exit(1);
 }
 
-if (!fs.existsSync('src/mustSupports.json')) {
-  console.error('Error: could not find "src/mustSupports.json". Ensure you run ./setup.sh first');
+if (!fs.existsSync('./src/qicore-must-supports.json')) {
+  console.error('Error: could not find "src/qicore-must-supports.json". Ensure you run ./setup.sh first');
   process.exit(1);
 }
 
-const cthonBasePath = path.resolve(path.join('../connectathon/fhir401/bundles/measure'));
+if (!fs.existsSync('./src/uscore-must-supports.json')) {
+  console.error('Error: could not find "src/uscore-must-supports.json". Ensure you run ./setup.sh first');
+  process.exit(1);
+}
+
+const qicoreMustSupports = JSON.parse(fs.readFileSync('./src/qicore-must-supports.json', 'utf8'));
+const uscoreMustSupports = JSON.parse(fs.readFileSync('./src/uscore-must-supports.json', 'utf8'));
+
+const cthonBasePath = path.resolve(path.join(__dirname, '../connectathon/fhir401/bundles/measure'));
 
 const bundleFilePaths = fs.readdirSync(cthonBasePath).map(d => path.join(d, `${d}-bundle.json`));
 
@@ -29,11 +36,20 @@ const GOOD_FILL_CONFIG = {
   fgColor: { argb: '9FFF9F' }
 };
 
+const WARN_FILL_CONFIG = {
+  type: 'pattern',
+  pattern: 'solid',
+  fgColor: { argb: 'F7FF00' }
+};
+
 const BAD_FILL_CONFIG = {
   type: 'pattern',
   pattern: 'solid',
   fgColor: { argb: 'FF9F9F' }
 };
+
+// Returns true if a QI-Core profile is based off of US-Core profile rather than base FHIR
+const isUsCoreBase = entry => entry.baseDefinition.startsWith('http://hl7.org/fhir/us/core');
 
 // Object for accumulating all Resources and attributes used for all measures
 const allResources = {};
@@ -62,9 +78,19 @@ bundleFilePaths.forEach(p => {
 
       // Validate each attribute at the measure level
       attributes.forEach(attr => {
-        if (!mustSupports[resourceType].includes(attr)) {
+        const qiCoreEntry = qicoreMustSupports[resourceType];
+        if (!qiCoreEntry.mustSupports.includes(attr)) {
           validationString += `\tERROR: Attribute ${resourceType}.${attr} is queried for by measure but not marked as "mustSupport" in the Profile\n`;
           measureHasError = true;
+        }
+
+        // Check for added data element
+        if (
+          !measureHasError &&
+          isUsCoreBase(qiCoreEntry) &&
+          !uscoreMustSupports[resourceType].mustSupports.includes(attr)
+        ) {
+          validationString += `\tWARNING: Attribute ${resourceType}.${attr} not marked as "mustSupport" in US-Core (new data element)\n`;
         }
       });
     });
@@ -90,15 +116,26 @@ Object.entries(allResources).forEach(([resourceType, attributes]) => {
   col.values = values;
 
   // Color each cell based on adherence to mustSupport flag
+  let maxWidth = 0;
   col.eachCell((cell, rowNum) => {
+    const qiCoreEntry = qicoreMustSupports[resourceType];
+
     if (rowNum > 2 && cell.value) {
-      if (!mustSupports[resourceType].includes(cell.value)) {
+      if (!qiCoreEntry.mustSupports.includes(cell.value)) {
         cell.fill = BAD_FILL_CONFIG;
+      } else if (isUsCoreBase(qiCoreEntry) && !uscoreMustSupports[resourceType].mustSupports.includes(cell.value)) {
+        cell.fill = WARN_FILL_CONFIG;
       } else {
         cell.fill = GOOD_FILL_CONFIG;
       }
     }
+
+    if (cell.value && cell.value.length > maxWidth) {
+      maxWidth = cell.value.length;
+    }
   });
+
+  col.width = maxWidth;
 });
 
 worksheet.getRow(1).font = {
@@ -107,11 +144,17 @@ worksheet.getRow(1).font = {
 
 worksheet.addRow();
 
-const legendRowGood = worksheet.addRow(['', '=', 'Correctly marked as "Must Support"']);
-const legendRowBad = worksheet.addRow(['', '=', 'Not marked as "Must Support"']);
+const legendRowGood = worksheet.addRow(['', '=', 'Correctly marked as "Must Support" in QI-Core']);
+const legendRowBad = worksheet.addRow(['', '=', 'Not marked as "Must Support" in QI-Core']);
+const legendRowWarn = worksheet.addRow([
+  '',
+  '=',
+  'Marked as "Must Support" in QI-Core but not in US-Core (added data element)'
+]);
 
 legendRowGood.getCell(1).fill = GOOD_FILL_CONFIG;
 legendRowBad.getCell(1).fill = BAD_FILL_CONFIG;
+legendRowWarn.getCell(1).fill = WARN_FILL_CONFIG;
 
 const outFile = 'output.xlsx';
 
